@@ -1,0 +1,11 @@
+---
+applications:
+- name: SimpleSentimentAnalysis-demo
+  framework: node
+  runtime: node08
+  mem: 256M
+  instances: 1
+  command: node app.js    #The command to use to start the application
+  host: SimpleSentimentAnalysis-${random-word}
+  domain: mybluemix.net
+  path: .   

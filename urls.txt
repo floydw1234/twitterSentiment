@@ -1,0 +1,3 @@
+https://8e25b93f-ff96-495b-a1fe-8ed6e2f5f054:0PQs084IUd@twcservice.mybluemix.net:433/api/weather/v1/geocode/33.761/-84.34738/observations.json
+https://8e25b93f-ff96-495b-a1fe-8ed6e2f5f054:0PQs084IUd@twcservice.mybluemix.net:443/api/weather/v1/geocode/45.423/-75.69654/observations.json?units=m&language=en-US
+https://8e25b93f-ff96-495b-a1fe-8ed6e2f5f054:0PQs084IUd@twcservice.mybluemix.net:443/api/weather/v1/geocode/45.42/75.69/observations.json?units=m&language=en-US

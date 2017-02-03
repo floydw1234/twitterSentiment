@@ -1,0 +1,12 @@
+{
+  "name": "SimpleSentimentAnalysisApp",
+  "description": "Simple Sentiment Analysis App",
+  "version": "0.9.0",
+  "private": true,
+  "dependencies": {
+    "cloudant": "^1.7.0",
+    "express": "3.x",
+    "ntwitter": "0.5.0",
+    "sentiment": "0.2.1"
+  }
+}
