@@ -3,7 +3,7 @@
  */
  /*jslint node:true*/
  var port = (3000);
- var request = require('request');
+ var request = require('request-promise');
  var express = require("express");
  var sentiment = require('sentiment');
  var twitter = require('ntwitter');
@@ -50,7 +50,7 @@ var dbCredentials = {
              if (vcapService.match(/cloudant/i)) {
                  dbCredentials.url = vcapServices[vcapService][0].credentials.url;
              }
-         }
+         } 
      } else { //When running locally, the VCAP_SERVICES will not be set
 
          // When running this app locally you can get your Cloudant credentials
@@ -128,65 +128,31 @@ initDBConnection();
      monitoringPhrase = "";
  }
 
- function weatherAPI(path, qs, done) {
-    var url = 'https://8e25b93f-ff96-495b-a1fe-8ed6e2f5f054:0PQs084IUd@twcservice.mybluemix.net' + path;
-    console.log(url, qs);
-    request({
-        url: url,
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json;charset=utf-8",
-            "Accept": "application/json"
-        },
-        qs: qs
-    }, function(err, req, data) {
-        if (err) {
-            done(err);
-        } else {
-            if (req.statusCode >= 200 && req.statusCode < 400) {
-                try {
-                    done(null, JSON.parse(data));
-                } catch(e) {
-                    console.log(e);
-                    done(e);
-                }
-            } else {
-                console.log(err);
-                done({ message: req.statusCode, data: data });
-            }
-        }
-    });
-}
 
-app.get('/api/observations', function(req, res) {
-    var geocode = (req.query.geocode || "45.43,-75.68").split(",");
-    weatherAPI("/api/weather/v1/geocode/" + geocode[0] + "/" + geocode[1] + "/observatoins.json", {
-        units: req.query.units || "m",
-        language: req.query.language || "en"
-    }, function(err, result) {
-        if (err) {
-        	console.log(err);
-            res.send(err).status(400);
-        } else {
-        	console.log("current conditions");
-            res.json(result);
-        }
-    });
-});
-function insertToDb(db, result1, geo) {
-             db.insert({
-                 weather: geo,
-                 score: result1.score
-             }, 69, function(err, doc) {
-                 if (err) {
-                     console.log(err);
-                 } else
-                     console.log("successfullly stored document")
-             });
+ function insertToDb(db, result1, geo, path) {
+     var weather = "";
+     var url = 'https://8e25b93f-ff96-495b-a1fe-8ed6e2f5f054:0PQs084IUd@twcservice.mybluemix.net:443' + path
+     const options = {
+         method: 'GET',
+         uri: url
+     }
+     request(options)
+         .then(function(response) {
+           db.insert({
+               weather: JSON.parse(response),
+               score: result1.score
+           }, 69, function(err, doc) {
+               if (err) {
+                   console.log(err);
+               } else
+                   console.log("successfullly stored document")
+           });
+         })
+         .catch(function(err) {
+             console.log(err);
+         })
 
-
-
-}
+ }
  function beginMonitoring(phrase) {
      // cleanup if we're re-setting the monitoring
      if (monitoringPhrase) {
@@ -213,14 +179,17 @@ function insertToDb(db, result1, geo) {
                      // only evaluate the sentiment of English-language tweets
                      if (data.lang === 'en') {
                           setTimeout(function(){sentiment(data.text, function (err, result) {
+
                             if (data.geo != null){
                               var path = '/api/weather/v1/geocode/'
                               + data.geo.coordinates[0].toString()
                               + '/'
                               + data.geo.coordinates[1].toString()
                               + '/observations.json?units=m&language=en-US';
-                              insertToDb(db,result,data.geo);
+                              insertToDb(db,result,data.geo, path);
+
                             }
+
 
                          })
                        }
@@ -272,7 +241,7 @@ function insertToDb(db, result1, geo) {
              "<BODY>\n" +
              "<P>\n" +
              "Welcome to the Twitter Sentiment Analysis app.<br>\n" +
-             "What would you like to monitor?\n" +
+             "press go to start monitoring values?\n" +
              "</P>\n" +
              "<FORM action=\"/monitor\" method=\"get\">\n" +
              "<P>\n" +
