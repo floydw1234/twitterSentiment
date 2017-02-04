@@ -7,9 +7,7 @@
  var express = require("express");
  var sentiment = require('sentiment');
  var twitter = require('ntwitter');
- var http = require('http'),
-    path = require('path'),
-    fs = require('fs');
+
 
  // make Stream globally visible so we can clean up better
  var stream;
@@ -50,7 +48,7 @@ var dbCredentials = {
              if (vcapService.match(/cloudant/i)) {
                  dbCredentials.url = vcapServices[vcapService][0].credentials.url;
              }
-         } 
+         }
      } else { //When running locally, the VCAP_SERVICES will not be set
 
          // When running this app locally you can get your Cloudant credentials
@@ -139,8 +137,16 @@ initDBConnection();
      request(options)
          .then(function(response) {
            db.insert({
-               weather: JSON.parse(response),
-               score: result1.score
+               TweetScore: result1.score,
+               heat_index: JSON.parse(response).observation.heat_index,
+               wspd: JSON.parse(response).observation.wspd,
+               feels_like: JSON.parse(response).observation.feels_like,
+               precip_hrly:JSON.parse(response).observation.precip_hrly,
+               pressure: JSON.parse(response).observation.pressure,
+               temp: JSON.parse(response).observation.temp,
+               wx_phrase: JSON.parse(response).observation.wx_phrase,
+               clds: JSON.parse(response).observation.clds,
+               wdir_cardinal: JSON.parse(response).observation.wdir_cardinal
            }, 69, function(err, doc) {
                if (err) {
                    console.log(err);
@@ -179,7 +185,7 @@ initDBConnection();
                      // only evaluate the sentiment of English-language tweets
                      if (data.lang === 'en') {
                           setTimeout(function(){sentiment(data.text, function (err, result) {
-
+                            //console.log(data.geo);
                             if (data.geo != null){
                               var path = '/api/weather/v1/geocode/'
                               + data.geo.coordinates[0].toString()
