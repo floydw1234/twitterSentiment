@@ -92,6 +92,26 @@ initDBConnection();
      });
  });
 
+ app.get('/api/favorites/attach', function(request, response) {
+   console.log("request");
+
+     db.get(function(err, body) {
+         if (err) {
+             response.status(500);
+             response.setHeader('Content-Type', 'text/plain');
+             response.write('Error: ' + err);
+             response.end();
+             return;
+         }
+
+         response.status(200);
+         response.setHeader("Content-Disposition", 'inline; filename="' + key + '"');
+         response.write(body);
+         response.end();
+         return;
+     });
+ });
+
  var tweetCount = 0;
  var tweetTotalSentiment = 0;
  var monitoringPhrase;
@@ -239,7 +259,7 @@ initDBConnection();
      return "/images/content.jpg";
  }
 
- app.get('/',
+ app.get('/findTweets',
      function (req, res) {
          var welcomeResponse = "<HEAD>" +
              "<title>Twitter Sentiment Analysis</title>\n" +
@@ -247,11 +267,10 @@ initDBConnection();
              "<BODY>\n" +
              "<P>\n" +
              "Welcome to the Twitter Sentiment Analysis app.<br>\n" +
-             "press go to start monitoring values?\n" +
+             "press go to start monitoring Tweets based on weather!\n" +
              "</P>\n" +
              "<FORM action=\"/monitor\" method=\"get\">\n" +
              "<P>\n" +
-             "<INPUT type=\"text\" name=\"phrase\" value=\"" + DEFAULT_TOPIC + "\"><br><br>\n" +
              "<INPUT type=\"submit\" value=\"Go\">\n" +
              "</P>\n" + "</FORM>\n" + "</BODY>";
          if (!monitoringPhrase) {
@@ -275,6 +294,11 @@ initDBConnection();
              res.send(monitoringResponse);
          }
      });
+
+app.get('/',
+    function (req, res) {
+           res.send('public/index.html');
+  });
 
  app.get('/testSentiment',
      function (req, res) {
@@ -305,12 +329,12 @@ initDBConnection();
 
  app.get('/monitor', function (req, res) {
      beginMonitoring(req.query.phrase);
-     res.redirect(302, '/');
+     res.redirect(302, '/findTweets');
  });
 
  app.get('/reset', function (req, res) {
      resetMonitoring();
-     res.redirect(302, '/');
+     res.redirect(302, '/findTweets');
  });
 
  app.get('/hello', function (req, res) {
