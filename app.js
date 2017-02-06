@@ -300,33 +300,6 @@ app.get('/',
            res.send('public/index.html');
   });
 
- app.get('/testSentiment',
-     function (req, res) {
-         var response = "<HEAD>" +
-             "<title>Twitter Sentiment Analysis</title>\n" +
-             "</HEAD>\n" +
-             "<BODY>\n" +
-             "<P>\n" +
-             "Welcome to the Twitter Sentiment Analysis app.  What phrase would you like to analzye?\n" +
-             "</P>\n" +
-             "<FORM action=\"/testSentiment\" method=\"get\">\n" +
-             "<P>\n" +
-             "Enter a phrase to evaluate: <INPUT type=\"text\" name=\"phrase\"><BR>\n" +
-             "<INPUT type=\"submit\" value=\"Send\">\n" +
-             "</P>\n" +
-             "</FORM>\n" +
-             "</BODY>";
-         var phrase = req.query.phrase;
-         if (!phrase) {
-             res.send(response);
-         } else {
-             sentiment(phrase, function (err, result) {
-                 response = 'sentiment(' + phrase + ') === ' + result.score;
-                 res.send(response);
-             });
-         }
-     });
-
  app.get('/monitor', function (req, res) {
      beginMonitoring(req.query.phrase);
      res.redirect(302, '/findTweets');
@@ -335,10 +308,6 @@ app.get('/',
  app.get('/reset', function (req, res) {
      resetMonitoring();
      res.redirect(302, '/findTweets');
- });
-
- app.get('/hello', function (req, res) {
-     res.send("Hello world.");
  });
 
  app.get('/watchTwitter', function (req, res) {

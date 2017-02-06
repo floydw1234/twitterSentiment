@@ -7,7 +7,7 @@
 	p {
 		font-size: 22px;
 		font-weight: bold;
-		font-style: italic;
+		font-style: oblique;
 		color: rgb(62, 62, 62);
 		margin: 18px;
 	}
@@ -42,6 +42,7 @@
 	.active {
 		background-color: rgb(6,179,6);
 	}
+	
 	</style>
 </head>
 <body>
@@ -56,11 +57,20 @@
 			<li ng-class="{active:tab===3}">
 				<a href ng-click="tab = 3">Tweet Sentiment vs precipitation</a>
 			</li>
+			<li ng-class="{active:tab===4}">
+				<a href ng-click="tab = 4">Tweet Sentiment vs precipitation</a>
+			</li>
 			<br><br>
 			<p ng-show="tab === 1"> insert graph1 here </p>
 			<p ng-show="tab === 2"> insert graph2 here </p>
 			<p ng-show="tab === 3">insert graph3 here</p>
+			<p ng-show="tab === 4">insert graph4 here</p>
 		</ul>
 	</section>
+
+  </body>
+
+
+
 </body>
 </html>
