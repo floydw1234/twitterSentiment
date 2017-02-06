@@ -3,6 +3,11 @@
 <head>
 	<title> AngularJS Tabs</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js" ></script>
+	<script type = "text/javascipt" src ="main.js"></script>
+	<script type = "text/javascipt" >
+	console.log("geegegeg")
+	</script>
+
 	<style>
 	p {
 		font-size: 22px;
@@ -33,7 +38,7 @@
 	li a {
 		text-decoration: none;
 		color: white;
-		font-size: 21px;
+		font-size: 15px;
 		font-style: italic;
 		text-shadow: 1px 0px 3px rgb(157, 157, 157);
 	}
@@ -42,29 +47,36 @@
 	.active {
 		background-color: rgb(6,179,6);
 	}
-	
+
 	</style>
 </head>
 <body>
+	<center><h1>Tweet Sentiment based on Weather Conditions </h1></center>
+	<center><h4>This webApp takes a random sample of tweets, rates their mood or Sentiment, then compares it to the weather where the tweet was sent! </h4></center>
 	<section>
 		<ul ng-init="tab = 1">
 			<li ng-class="{active:tab===1}">
-				<a href ng-click="tab = 1">Tweet Sentiment vs Temperature(C)</a>
+				<a href ng-click="tab = 1"> Tweet Sentiment vs Temperature(C)</a>
 			</li>
 			<li ng-class="{active:tab===2}">
-				<a href ng-click="tab = 2">Tweet Sentiment vs Air pressure</a>
+				<a href ng-click="tab = 2"> Tweet Sentiment vs Air pressure</a>
 			</li>
 			<li ng-class="{active:tab===3}">
-				<a href ng-click="tab = 3">Tweet Sentiment vs precipitation</a>
+				<a href ng-click="tab = 3"> Tweet Sentiment vs precipitation</a>
 			</li>
 			<li ng-class="{active:tab===4}">
-				<a href ng-click="tab = 4">Tweet Sentiment vs precipitation</a>
+				<a href ng-click="tab = 4"> Tweet Sentiment vs precipitation</a>
 			</li>
 			<br><br>
-			<p ng-show="tab === 1"> insert graph1 here </p>
-			<p ng-show="tab === 2"> insert graph2 here </p>
-			<p ng-show="tab === 3">insert graph3 here</p>
-			<p ng-show="tab === 4">insert graph4 here</p>
+			<script>
+
+			</script>
+			<p ng-show="tab === 1"><br>
+
+			</p>
+			<p ng-show="tab === 2"> <br>insert graph2 here </p>
+			<p ng-show="tab === 3"><br>insert graph3 here</p>
+			<p ng-show="tab === 4"><br>insert graph4 here</p>
 		</ul>
 	</section>
 
