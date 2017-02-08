@@ -1,9 +1,8 @@
 <!doctype html>
-<html ng-app>
+<html>
    <head>
 		 <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title> AngularJS Tabs</title>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js" ></script>
 
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
   		<script type="text/javascript" src="js/fusioncharts.js"></script>
@@ -18,21 +17,42 @@
          <h4>This webApp takes a random sample of tweets, rates their mood or Sentiment, then compares it to the weather where the tweet was sent! </h4>
       </center>
 
+    <div ng-app = "myApp" >
+      <script type="text/javascript" src="js/makeGraph.js" ></script>
+      <center>
 
-
-      <div id="chartContainerTemp">Temperature chart here</div>
       <script type = "text/javascript" src = "js/charTemp.js"></script>
+      <div id="chartContainerTemp" ng-controller="tempContr">Temperature chart here</div>
 
-      <div id="chartContainerPressure">Pressure chart here here!</div>
-      <script type = "text/javascript" src = "js/charPressure.js"></script>
 
-      <div id="chartContainerHourly_prec">Hourly_Precip will load here!</div>
+      <script type = "text/javascript" src = "js/charPressure.js" ></script>
+      <div id="chartContainerPressure" ng-controller ='pressContr'>Pressure chart here!</div>
+
+
+<!--
+      <div id="chartContainerHourly_prec" ng-controller="hrylyContr">Hourly_Precip will load here!</div>
       <script type = "text/javascript" src = "js/charHourly_prec.js"></script>
 
-      <div id="chartContainerWspd">WindSpeed chart will load here!</div>
+      <div id="chartContainerWspd" ng-controller="wspdContr">WindSpeed chart will load here!</div>
       <script type = "text/javascript" src = "js/charWspd.js"></script>
 
+      -->
+      </center>
+    </div>
+    <!--
+    <script>
+    var options = {
+        "caption": "Tweet Sentimendat vs Air Pressure",
+        "subCaption": "IBM Bluemix Demo",
+        "xAxisName": "Tweet Sentiment Score ",
+        "yAxisName": "Pressure(kPA) ",
+        "theme": "fint"
+    };
+     makeCharts("response", options, "chartContainerWspd1");
+     </script>
 
 
+     <div id="chartContainerWspd1" >WindSpeed chart will load here!</div>
+     -->
    </body>
 </html>

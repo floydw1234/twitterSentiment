@@ -118,53 +118,67 @@ dataArray = []
 
 data1 = {
     'label': 'Temp',
-    'avgTempln5': avgTEMPLN5,
-    'avgTempb50': avgTEMPBetN50,
-    'avgTemp0': avgTEMP0,
-    'avgTempb05': avgTEMPBet05,
-    'avgTempg5': avgTEMPG5
+    'ln5': avgTEMPLN5,
+    'b50': avgTEMPBetN50,
+    'e0': avgTEMP0,
+    'b05': avgTEMPBet05,
+    'g5': avgTEMPG5
 }
 
-dataArray.append(data1)
+
 data2 = {
     'label': 'Pressure',
-    'avgPressln5': avgPRESSLN5,
-    'avgPressb50': avgPRESSBetN50,
-    'avgPress0': avgPRESS0,
-    'avgPressb05': avgPRESSBet05,
-    'avgPressg5' : avgPRESSG5
+    'ln5': avgPRESSLN5,
+    'b50': avgPRESSBetN50,
+    'e0': avgPRESS0,
+    'b05': avgPRESSBet05,
+    'g5' : avgPRESSG5
 
 }
-dataArray.append(data2)
+
 data3 = {
     'label': 'Precip_hrly',
-    'avgphrlyprecln5': avgHRLYPRECLN5,
-    'avgphrlyprecb50': avgHRLYPRECBetN50,
-    'avgphrlyprec0': avgHRLYPRECBet05,
-    'avgphrlyprecb05': avgHRLYPREC0,
-    'avgphrlyprecg5': avgHRLYPRECG5
+    'ln5': avgHRLYPRECLN5,
+    'b50': avgHRLYPRECBetN50,
+    'e0': avgHRLYPRECBet05,
+    'b05': avgHRLYPREC0,
+    'g5': avgHRLYPRECG5
 }
-dataArray.append(data3)
+
 data4 = {
     'label': 'Wspd',
-    'avgWspdln5': avgWSPDLN5,
-    'avgWspdb50': avgWSPDBetN50,
-    'avgWSPD0' : avgWSPD0,
-    'avgWspd0b05': avgWSPD0,
-    'avgWspdg5': avgWSPDBet05
-
+    'ln5': avgWSPDLN5,
+    'b50': avgWSPDBetN50,
+    'e0' : avgWSPD0,
+    'b05': avgWSPD0,
+    'g5': avgWSPDBet05
 }
+dataArray.append(data2)
 dataArray.append(data4)
+dataArray.append(data3)
+dataArray.append(data1)
 
 
-client.delete_database('fleeter_avg')
-my_database = client.create_database('fleeter_avg')
+#client.delete_database('fleeter_avg')
+#my_database = client.create_database('fleeter_avg')
 my_database = client['fleeter_avg']
 
+'''
 for data in dataArray:
     my_document = my_database.create_document(data)
     if my_document.exists():
         print 'stored document'
+'''
+i = 0
+for document in my_database:
+    document['ln5'] = dataArray[i]['ln5']
+    document['b50'] = dataArray[i]['b50']
+    document['e0'] = dataArray[i]['e0']
+    document['b05'] = dataArray[i]['b05']
+    document['g5'] = dataArray[i]['g5']
+    document.save()
+    i += 1
+
 
 
 

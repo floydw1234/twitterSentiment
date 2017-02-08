@@ -16,7 +16,7 @@ FusionCharts.ready(function(){
      "data": [
          {
             "label": "Jan",
-            "value": "420000"
+            "value": "4200"
          },
          {
             "label": "Feb",

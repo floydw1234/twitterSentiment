@@ -7,6 +7,7 @@
  var express = require("express");
  var sentiment = require('sentiment');
  var twitter = require('ntwitter');
+ var Promise = require('bluebird');
 
 
  // make Stream globally visible so we can clean up better
@@ -310,6 +311,7 @@ app.get('/',
      res.redirect(302, '/findTweets');
  });
 
+
  app.get('/watchTwitter', function (req, res) {
      var stream;
      var testTweetCount = 0;
@@ -332,6 +334,20 @@ app.get('/',
              });
          });
      });
+ });
+ app.get('/getAvgTemp', function (req, res) {
+   var id = '54f03d18ea8fac388be6bd624ad9f9c1';
+   var options = {
+     method: 'GET',
+     uri: 'https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com'
+     + '/fleeter_avg/' + id
+    }
+    request(options)
+        .then(function(response) {
+          res.send(JSON.parse(response));
+        }).catch(function(err) {
+            console.log("check log for error");
+        });
  });
 
  app.listen(port);
