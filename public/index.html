@@ -7,36 +7,53 @@
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
   		<script type="text/javascript" src="js/fusioncharts.js"></script>
   		<script type="text/javascript" src="js/themes/fusioncharts.theme.fint.js"></script>
+      <style>
+          body {
+              color: red;
+              }
+              h1 {
+                color: black;
+                
+                font: Georgia;
+              }
+              h2 {
+                color: black;
+
+                font: Georgia;
+              }
+              p {
+                color: rgb(0,0,255)
+              }
+</style>
 
    </head>
-   <body>
+   <body background="background.jpg">
       <center>
-         <h1>Tweet Sentiment based on Weather Conditions </h1>
+         <h1 text = "red">Tweet Sentiment based on Weather Conditions </h1>
       </center>
       <center>
-         <h4>This webApp takes a random sample of tweets, rates their mood or Sentiment, then compares it to the weather where the tweet was sent! </h4>
+         <h2 text = "red">This webApp takes a random sample of tweets, rates their mood or Sentiment, then compares it to the weather where the tweet was sent! </h4>
       </center>
 
     <div ng-app = "myApp" >
       <script type="text/javascript" src="js/makeGraph.js" ></script>
       <center>
 
-      <script type = "text/javascript" src = "js/charTemp.js"></script>
-      <div id="chartContainerTemp" ng-controller="tempContr">Temperature chart here</div>
-
-
       <script type = "text/javascript" src = "js/charPressure.js" ></script>
+      <div id="chartContainerTemp" ng-controller ='pressContr'>Temperature chart here</div>
+
+<br>
+
       <div id="chartContainerPressure" ng-controller ='pressContr'>Pressure chart here!</div>
 
+<br>
 
-<!--
-      <div id="chartContainerHourly_prec" ng-controller="hrylyContr">Hourly_Precip will load here!</div>
-      <script type = "text/javascript" src = "js/charHourly_prec.js"></script>
+      <div id="chartContainerHourly_prec" ng-controller ='pressContr'>Hourly_Precip will load here!</div>
 
-      <div id="chartContainerWspd" ng-controller="wspdContr">WindSpeed chart will load here!</div>
-      <script type = "text/javascript" src = "js/charWspd.js"></script>
+<br>
 
-      -->
+      <div id="chartContainerWspd" ng-controller ='pressContr'>WindSpeed chart will load here!</div>
+
       </center>
     </div>
     <!--

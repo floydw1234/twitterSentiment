@@ -335,8 +335,50 @@ app.get('/',
          });
      });
  });
- app.get('/getAvgTemp', function (req, res) {
+ app.get('/getAvgPress', function (req, res) {
    var id = '54f03d18ea8fac388be6bd624ad9f9c1';
+   var options = {
+     method: 'GET',
+     uri: 'https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com'
+     + '/fleeter_avg/' + id
+    }
+    request(options)
+        .then(function(response) {
+          res.send(JSON.parse(response));
+        }).catch(function(err) {
+            console.log("check log for error");
+        });
+ });
+ app.get('/getAvgTemp', function (req, res) {
+   var id = 'd85d559d97d13cf381d690526a0ee412';
+   var options = {
+     method: 'GET',
+     uri: 'https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com'
+     + '/fleeter_avg/' + id
+    }
+    request(options)
+        .then(function(response) {
+          res.send(JSON.parse(response));
+        }).catch(function(err) {
+            console.log("check log for error");
+        });
+ });
+ app.get('/getAvgHrlyPrec', function (req, res) {
+   var id = '8c4b86e3b066c8e740b38f2d81f92aaa';
+   var options = {
+     method: 'GET',
+     uri: 'https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com'
+     + '/fleeter_avg/' + id
+    }
+    request(options)
+        .then(function(response) {
+          res.send(JSON.parse(response));
+        }).catch(function(err) {
+            console.log("check log for error");
+        });
+ });
+ app.get('/getAvgwspd', function (req, res) {
+   var id = '6c345dbb535a62b78fa37ccad5964a0c';
    var options = {
      method: 'GET',
      uri: 'https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com'

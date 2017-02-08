@@ -26,7 +26,7 @@ function makeCharts(response,options, renderAt){
                             "value": response.data.b05
                         },
                         {
-                            "label": "greater than 2 sentiment (exptremely positive)",
+                            "label": "greater than 2 (extremely positive)",
                             "value": response.data.g5
                         }
                     ]

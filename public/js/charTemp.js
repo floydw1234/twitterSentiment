@@ -1,70 +1,31 @@
-FusionCharts.ready(function(){
- var revenueChart = new FusionCharts({
-   "type": "column3d",
-   "renderAt": "chartContainerTemp",
-   "width": "1000",
-   "height": "500",
-   "dataFormat": "json",
-   "dataSource": {
-     "chart": {
+function tempContr(){
+var myApp = angular.module('myApp', []);
+myApp.controller('tempContr', function($scope, $http) {
+
+     var options ={
          "caption": "Tweet Sentiment vs Temperature",
          "subCaption": "IMB Bluemix Demo",
          "xAxisName": "Tweet Sentiment",
          "yAxisName": "Temperature(Celcius)",
          "theme": "fint"
-      },
-     "data": [
-         {
-            "label": "Jan",
-            "value": "4200"
-         },
-         {
-            "label": "Feb",
-            "value": "810000"
-         },
-         {
-            "label": "Mar",
-            "value": "720000"
-         },
-         {
-            "label": "Apr",
-            "value": "550000"
-         },
-         {
-            "label": "May",
-            "value": "910000"
-         },
-         {
-            "label": "Jun",
-            "value": "510000"
-         },
-         {
-            "label": "Jul",
-            "value": "680000"
-         },
-         {
-            "label": "Aug",
-            "value": "620000"
-         },
-         {
-            "label": "Sep",
-            "value": "610000"
-         },
-         {
-            "label": "Oct",
-            "value": "490000"
-         },
-         {
-            "label": "Nov",
-            "value": "900000"
-         },
-         {
-            "label": "Dec",
-            "value": "730000"
-         }
-      ]
-   }
-});
+      };
 
-revenueChart.render();
-})
+      //'https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com/fleeter_avg/d6a56cca6876bcb3883ac81ef3324afb'
+        //makeCharts("das", options, "chartContainerPressure");
+      //  url3 = "http://www.w3schools.com/angular/customers.php";
+      //  url2 = 'http://localhost:3000/twitterCheck';
+        //url = "https://0e02ede9-86ba-497d-b352-8217aec97af2.cloudant.com/fleeter/_all_docs";
+        $http.get('/getAvgTemp')
+          .then(function successCallback(response) {
+              $scope.response = response;
+              $scope.parJson = function (json) {
+                  return angular.fromJson(json);
+              }
+              makeCharts($scope.response, options,"chartContainerTemp")
+
+          }, function errorCallback(response) {
+              $scope.error = response;
+          });
+
+      });
+}
