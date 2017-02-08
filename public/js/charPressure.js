@@ -38,7 +38,7 @@ myApp.controller('pressContr', function($scope, $http) {
   //url3 = "http://www.w3schools.com/angular/customers.php";
   //url2 = 'http://localhost:3000/twitterCheck';
   //url = "https://0e02ede9-86ba-497d-b352-8217aec97af2.cloudant.com/fleeter/_all_docs";
-  $http.get('/getAvgPress')
+  $http.get('/api/getAvgPress')
     .then(function successCallback(response) {
         $scope.response = response;
         $scope.parJson = function (json) {
@@ -49,7 +49,7 @@ myApp.controller('pressContr', function($scope, $http) {
     }, function errorCallback(response) {
         $scope.error = response;
     });
-    $http.get('/getAvgTemp')
+    $http.get('/api/getAvgTemp')
       .then(function successCallback(response) {
           $scope.response = response;
           $scope.parJson = function (json) {
@@ -60,7 +60,7 @@ myApp.controller('pressContr', function($scope, $http) {
       }, function errorCallback(response) {
           $scope.error = response;
       });
-      $http.get('/getAvgHrlyPrec')
+      $http.get('/api/getAvgHrlyPrec')
         .then(function successCallback(response) {
             $scope.response = response;
             $scope.parJson = function (json) {
@@ -71,7 +71,7 @@ myApp.controller('pressContr', function($scope, $http) {
         }, function errorCallback(response) {
             $scope.error = response;
         });
-        $http.get('/getAvgwspd')
+        $http.get('/api/getAvgwspd')
           .then(function successCallback(response) {
               $scope.response = response;
               $scope.parJson = function (json) {

@@ -1,11 +1,12 @@
----
 applications:
-- name: SimpleSentimentAnalysis-demo
-  framework: node
-  runtime: node08
-  mem: 256M
+- path: .
+  memory: 512M
   instances: 1
-  command: node app.js    #The command to use to start the application
-  host: SimpleSentimentAnalysis-${random-word}
   domain: mybluemix.net
-  path: .   
+  name: twitterSentiment2017
+  host: twitterSentiment2017
+  disk_quota: 1024M
+  services:
+  - CalplugprojectExample-cloudantNoSQLDB
+  - Insights for Twitter-pz
+  - Weather Company Data-bf

@@ -1,13 +1,22 @@
 {
-  "name": "SimpleSentimentAnalysisApp",
-  "description": "Simple Sentiment Analysis App",
-  "version": "0.9.0",
+  "name": "cloudant_boilerplate_nodejs",
+  "version": "0.0.2",
   "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
-    "angular-chart.js": "^1.1.1",
-    "cloudant": "^1.7.0",
-    "express": "3.x",
-    "ntwitter": "0.5.0",
-    "sentiment": "0.2.1"
+    "express": "4.13.x",
+    "ejs": "2.4.x",
+    "cloudant": "1.4.x",
+    "body-parser": "1.14.x",
+    "method-override": "2.3.x",
+    "morgan": "1.6.x",
+    "errorhandler": "1.4.x",
+    "connect-multiparty": "2.0.x"
+  },
+  "repository": {},
+  "engines": {
+  	"node": "4.x"
   }
 }
