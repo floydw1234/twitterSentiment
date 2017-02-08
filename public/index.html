@@ -1,88 +1,38 @@
 <!doctype html>
 <html ng-app>
-<head>
-	<title> AngularJS Tabs</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js" ></script>
-	<script type = "text/javascipt" src ="main.js"></script>
-	<script type = "text/javascipt" >
-	console.log("geegegeg")
-	</script>
+   <head>
+		 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title> AngularJS Tabs</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js" ></script>
 
-	<style>
-	p {
-		font-size: 22px;
-		font-weight: bold;
-		font-style: oblique;
-		color: rgb(62, 62, 62);
-		margin: 18px;
-	}
-	ul {
-		float: left;
-		border-radius: 5px;
-		border: solid 1px rgb(198, 198, 198);
-		padding: 7px 11px;
-		background-color: rgb(248,248,248);
-	}
-	li {
-		float: left;
-		background-color: rgb(200,200,200);
-		padding: 5px 19px;
-		margin: 5px 2px 5px 0px;
-		color: black;
-		list-style: none;
-	}
-	li:hover, li:hover a {
-		background-color: rgb(6,179,6);
-		color:white;
-	}
-	li a {
-		text-decoration: none;
-		color: white;
-		font-size: 15px;
-		font-style: italic;
-		text-shadow: 1px 0px 3px rgb(157, 157, 157);
-	}
-	li:nth-child(1) { border-radius: 4px 0px 0px 4px; margin-left: 1px;}
-	li:nth-child(3) { border-radius: 0px 4px 4px 0px;}
-	.active {
-		background-color: rgb(6,179,6);
-	}
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+  		<script type="text/javascript" src="js/fusioncharts.js"></script>
+  		<script type="text/javascript" src="js/themes/fusioncharts.theme.fint.js"></script>
 
-	</style>
-</head>
-<body>
-	<center><h1>Tweet Sentiment based on Weather Conditions </h1></center>
-	<center><h4>This webApp takes a random sample of tweets, rates their mood or Sentiment, then compares it to the weather where the tweet was sent! </h4></center>
-	<section>
-		<ul ng-init="tab = 1">
-			<li ng-class="{active:tab===1}">
-				<a href ng-click="tab = 1"> Tweet Sentiment vs Temperature(C)</a>
-			</li>
-			<li ng-class="{active:tab===2}">
-				<a href ng-click="tab = 2"> Tweet Sentiment vs Air pressure</a>
-			</li>
-			<li ng-class="{active:tab===3}">
-				<a href ng-click="tab = 3"> Tweet Sentiment vs precipitation</a>
-			</li>
-			<li ng-class="{active:tab===4}">
-				<a href ng-click="tab = 4"> Tweet Sentiment vs precipitation</a>
-			</li>
-			<br><br>
-			<script>
-
-			</script>
-			<p ng-show="tab === 1"><br>
-
-			</p>
-			<p ng-show="tab === 2"> <br>insert graph2 here </p>
-			<p ng-show="tab === 3"><br>insert graph3 here</p>
-			<p ng-show="tab === 4"><br>insert graph4 here</p>
-		</ul>
-	</section>
-
-  </body>
+   </head>
+   <body>
+      <center>
+         <h1>Tweet Sentiment based on Weather Conditions </h1>
+      </center>
+      <center>
+         <h4>This webApp takes a random sample of tweets, rates their mood or Sentiment, then compares it to the weather where the tweet was sent! </h4>
+      </center>
 
 
 
-</body>
+      <div id="chartContainerTemp">Temperature chart here</div>
+      <script type = "text/javascript" src = "js/charTemp.js"></script>
+
+      <div id="chartContainerPressure">Pressure chart here here!</div>
+      <script type = "text/javascript" src = "js/charPressure.js"></script>
+
+      <div id="chartContainerHourly_prec">Hourly_Precip will load here!</div>
+      <script type = "text/javascript" src = "js/charHourly_prec.js"></script>
+
+      <div id="chartContainerWspd">WindSpeed chart will load here!</div>
+      <script type = "text/javascript" src = "js/charWspd.js"></script>
+
+
+
+   </body>
 </html>
