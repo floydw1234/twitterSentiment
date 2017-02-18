@@ -50,28 +50,28 @@ for document in my_database:
     #print document['temp']
 
     if document['TweetScore'] < -2:
-        avgTEMPLN5 += int(document['temp'])
-        avgPRESSLN5 += int(document['pressure'])
+        avgTEMPLN5 += document['temp']
+        avgPRESSLN5 += document['pressure']
 
-        avgHRLYPRECLN5 += int(document['precip_hrly'])
-        avgWSPDLN5 += int(document['wspd'])
+        avgHRLYPRECLN5 += document['precip_hrly']
+        avgWSPDLN5 += document['wspd']
         counterLN5 += 1
     elif document['TweetScore'] > -2 and document['TweetScore'] < 0:
-        avgTEMPBetN50 += int(document['temp'])
-        avgPRESSBetN50 += int(document['pressure'])
+        avgTEMPBetN50 += document['temp']
+        avgPRESSBetN50 += document['pressure']
 
-        avgHRLYPRECBetN50 += int(document['precip_hrly'])
-        avgWSPDBetN50 += int(document['wspd'])
+        avgHRLYPRECBetN50 += document['precip_hrly']
+        avgWSPDBetN50 += document['wspd']
         counterBN50 += 1
     elif document['TweetScore'] == 0:
-        avgTEMP0 += int(document['temp'])
-        avgPRESS0 += int(document['pressure'])
+        avgTEMP0 += document['temp']
+        avgPRESS0 += document['pressure']
 
-        avgHRLYPREC0 += int(document['precip_hrly'])
-        avgWSPD0 += int(str(document['wspd']))
+        avgHRLYPREC0 += document['precip_hrly']
+        avgWSPD0 += document['wspd']
         counter0 += 1
     elif document['TweetScore'] < 2 and document['TweetScore'] > 0:
-        avgTEMPBet05 += int(document['temp'])
+        avgTEMPBet05 += document['temp']
         avgPRESSBet05 += document['pressure']
 
         avgHRLYPRECBet05 += document['precip_hrly']
@@ -86,31 +86,31 @@ for document in my_database:
         counterG5 += 1
 
 
+#float("{0:.3f}".format(
 
+avgTEMPLN5 = float("{0:.3f}".format(avgTEMPLN5/counterLN5))
+avgTEMPBetN50 = float("{0:.3f}".format(avgTEMPBetN50/counterBN50))
+avgTEMP0 = float("{0:.3f}".format(avgTEMP0/counter0))
+avgTEMPBet05 = float("{0:.3f}".format(avgTEMPBet05/counterB05))
+avgTEMPG5 = float("{0:.3f}".format(avgTEMPG5/counterG5))
 
-avgTEMPLN5 = avgTEMPLN5/counterLN5
-avgTEMPBetN50 = avgTEMPBetN50/counterBN50
-avgTEMP0 = avgTEMP0/counter0
-avgTEMPBet05 = avgTEMPBet05/counterB05
-avgTEMPG5 = avgTEMPG5/counterG5
+avgPRESSLN5 = float("{0:.3f}".format(avgPRESSLN5/counterLN5))
+avgPRESSBetN50 = float("{0:.3f}".format(avgPRESSBetN50/counterBN50))
+avgPRESS0 = float("{0:.3f}".format(avgPRESS0/counter0))
+avgPRESSBet05 = float("{0:.3f}".format(avgPRESSBet05/counterB05))
+avgPRESSG5 = float("{0:.3f}".format(avgPRESSG5/counterG5))
 
-avgPRESSLN5 = avgPRESSLN5/counterLN5
-avgPRESSBetN50 = avgPRESSBetN50/counterBN50
-avgPRESS0 = avgPRESS0/counter0
-avgPRESSBet05 = avgPRESSBet05/counterB05
-avgPRESSG5 = avgPRESSG5/counterG5
+avgWSPDLN5 = float("{0:.3f}".format(avgWSPDLN5/counterLN5))
+avgWSPDBetN50 = float("{0:.3f}".format(avgWSPDBetN50/counterBN50))
+avgWSPD0 = float("{0:.3f}".format(avgWSPD0/counter0))
+avgWSPDBet05 = float("{0:.3f}".format(avgWSPDBet05/counterB05))
+avgWSPDG5 = float("{0:.3f}".format(avgWSPDG5/counterG5))
 
-avgWSPDLN5 = avgWSPDLN5/counterLN5
-avgWSPDBetN50 = avgWSPDBetN50/counterBN50
-avgWSPD0 = avgWSPD0/counter0
-avgWSPDBet05 = avgWSPDBet05/counterB05
-avgWSPDG5 = avgWSPDG5/counterG5
-
-avgHRLYPRECLN5 = avgHRLYPRECLN5/counterLN5
-avgHRLYPRECBetN50 = avgHRLYPRECBetN50/counterBN50
-avgHRLYPREC0 = avgHRLYPREC0/counter0
-avgHRLYPRECBet05 = avgHRLYPRECBet05/counterB05
-avgHRLYPRECG5 = avgHRLYPRECG5/counterG5
+avgHRLYPRECLN5 = float("{0:.3f}".format(avgHRLYPRECLN5/counterLN5))
+avgHRLYPRECBetN50 = float("{0:.3f}".format(avgHRLYPRECBetN50/counterBN50))
+avgHRLYPREC0 = float("{0:.3f}".format(avgHRLYPREC0/counter0))
+avgHRLYPRECBet05 = float("{0:.3f}".format(avgHRLYPRECBet05/counterB05))
+avgHRLYPRECG5 = float("{0:.3f}".format(avgHRLYPRECG5/counterG5))
 
 
 

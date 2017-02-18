@@ -3,31 +3,31 @@ var myApp = angular.module('myApp', []);
 myApp.controller('pressContr', function($scope, $http) {
 
   var optionsPress =     {
-          "caption": "Tweet Sentiment vs Air Pressure",
+          "caption": "Tweet Sentiment vs Avg Air Pressure",
           "subCaption": "IBM Bluemix Demo",
           "xAxisName": "Tweet Sentiment Score ",
-          "yAxisName": "Pressure(kPA) ",
+          "yAxisName": "Avg Pressure(kPA) ",
           "theme": "fint"
       };
       var optionsTemp ={
-          "caption": "Tweet Sentiment vs Temperature",
+          "caption": "Tweet Sentiment vs Avg Temperature",
           "subCaption": "IMB Bluemix Demo",
           "xAxisName": "Tweet Sentiment",
-          "yAxisName": "Temperature(Celcius)",
+          "yAxisName": "Avg Temperature(Celcius)",
           "theme": "fint"
        };
        var optionsWspd= {
-           "caption": "Tweet's Sentiment vs Wind Speed",
+           "caption": "Tweet's Sentiment vs Avg Wind Speed",
            "subCaption": "IBM Bluemix Demo",
            "xAxisName": "Tweet Sentiment",
-           "yAxisName": "WindSpeed(km/hour)",
+           "yAxisName": "Avg WindSpeed(km/hour)",
            "theme": "fint"
         };
         var optionsHourly_Prec =  {
-            "caption": "Tweet Sentiment vs Hourly Precipitation",
+            "caption": "Tweet Sentiment vs Avg Hourly Precipitation",
             "subCaption": "IBM Bluemix Demo",
             "xAxisName": "Tweet Sentiment",
-            "yAxisName": "Hourly Precipitation",
+            "yAxisName": "Avg Hourly Precipitation(inches/hr)",
             "theme": "fint"
          };
 

@@ -12,6 +12,7 @@ var express = require('express'),
     path = require('path'),
     fs = require('fs');
 
+
 var app = express();
 
 var db;
@@ -21,7 +22,7 @@ var cloudant;
 var fileToUpload;
 
 var dbCredentials = {
-    dbName: 'my_sample_db'
+    dbName: 'fleeter'
 };
 
 var bodyParser = require('body-parser');
@@ -88,8 +89,8 @@ function initDBConnection() {
 
 initDBConnection();
 var tweeter = new twitter({
-    consumer_key: '1toV6tPYZZfdER17iLlgCeKkS',
-    consumer_secret: 'YrqDP671zFMv3J5qvOAlgsOxEG8S3H6mWNxStPnk8K13GyfVD7',
+    consumer_key: 's7tu1MA4aS9vNEG2oW6dBxLCI',
+    consumer_secret: '8p3emCEWomM0w0w8hRtb1TeqT088w2WA5yoz1VYHIjno6rLn7O',
     access_token_key: '540555484-1UzFM7FtLwrkIWVkMFSGHBaGtliwhfT3rU1997M3',
     access_token_secret: 'vbCk74LbFVqT06qWmEFtfUJyMwcF6SRBQ3Erl71C54nrZ'
 });
@@ -107,6 +108,10 @@ app.get('/',
       resetMonitoring();
       res.redirect(302, '/findTweets');
   });
+  app.get('/fart',
+      function (req, res) {
+             res.send('It smells really bad');
+    });
 
 
   app.get('/watchTwitter', function (req, res) {
@@ -226,7 +231,7 @@ app.get('/',
 
    function insertToDb(db, result1, geo, path) {
        var weather = "";
-       var url = 'https://8e25b93f-ff96-495b-a1fe-8ed6e2f5f054:0PQs084IUd@twcservice.mybluemix.net:443' + path
+       var url = 'https://968e1c1e-1501-4bcd-a816-37c113e18384:LNF86gtnx2@twcservice.mybluemix.net:443' + path
        const options = {
            method: 'GET',
            uri: url
@@ -290,10 +295,7 @@ app.get('/',
                                 + data.geo.coordinates[1].toString()
                                 + '/observations.json?units=m&language=en-US';
                                 insertToDb(db,result,data.geo, path);
-
                               }
-
-
                            })
                          }
                            ,500);
