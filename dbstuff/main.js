@@ -1,0 +1,140 @@
+var request = require('request-promise');
+var express = require("express");
+var sentiment = require('sentiment');
+var twitter = require('ntwitter');
+
+var Promise = require('bluebird');
+
+var outputTemp = [];
+var outputPress = [];
+var outputHourly_prec = [];
+var outputWspd = [];
+
+ var db;
+  var cloudant;
+  var data = [];
+
+ var dbCredentials = {
+     dbName: 'fleeter'
+ };
+ function initDBConnection() {
+     //When running on Bluemix, this variable will be set to a json object
+     //containing all the service credentials of all the bound services
+     if (process.env.VCAP_SERVICES) {
+         var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+         // Pattern match to find the first instance of a Cloudant service in
+         // VCAP_SERVICES. If you know your service key, you can access the
+         // service credentials directly by using the vcapServices object.
+         for (var vcapService in vcapServices) {
+             if (vcapService.match(/cloudant/i)) {
+                 dbCredentials.url = vcapServices[vcapService][0].credentials.url;
+             }
+         }
+     } else { //When running locally, the VCAP_SERVICES will not be set
+
+         // When running this app locally you can get your Cloudant credentials
+         // from Bluemix (VCAP_SERVICES in "cf env" output or the Environment
+         // Variables section for an app in the Bluemix console dashboard).
+         // Alternately you could point to a local database here instead of a
+         // Bluemix service.
+         // url will be in this format: https://username:password@xxxxxxxxx-bluemix.cloudant.com
+         dbCredentials.url = "https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com";
+     }
+
+     cloudant = require('cloudant')(dbCredentials.url);
+
+     // check if DB exists if not create
+     cloudant.db.create(dbCredentials.dbName, function(err, res) {
+         if (err) {
+             console.log('Could not create new db: ' + dbCredentials.dbName + ', it might already exist.');
+         }
+     });
+
+     db = cloudant.use(dbCredentials.dbName);
+ }
+
+initDBConnection();
+ var optionList = [];
+ var part1 = function(){
+     return new Promise(function(resolve, reject){
+
+           db.list( function (err, data) {
+             for(i=0 ; i < 40 ; i ++){
+                 var options = {
+                   method: 'GET',
+                   uri: 'https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com'
+                   + '/fleeter/' + data.rows[i].id
+                 }
+                 optionList.push(options);
+               }
+               resolve(optionList);
+             });
+   });
+ }
+ var part2 = function(options) {
+    return new Promise(function(resolve, reject) {
+            for (i = 0; i < 20; i++) {
+
+                        request(options[i])
+                            .then(function(response) {
+                                outputTemp.push([JSON.parse(response).TweetScore ,  JSON.parse(response).temp]);
+                                if (JSON.parse(response).pressure != null)
+                                    outputPress.push([JSON.parse(response).TweetScore,  JSON.parse(response).pressure]);
+                                if (JSON.parse(response).precip_hrly != null){
+                                    outputHourly_prec.push([JSON.parse(response).TweetScore , JSON.parse(response).precip_hrly]);
+                                }else{
+                                    outputWspd.push([JSON.parse(response).TweetScore , 0]);
+                                }
+                                if (JSON.parse(response).wspd != null){
+                                    outputWspd.push([JSON.parse(response).TweetScore , JSON.parse(response).wspd]);
+                                }else {
+                                    outputWspd.push([JSON.parse(response).TweetScore , 0]);
+                                }
+                            })
+                            .catch(function(err) {
+                                console.log("check log for error");
+
+                            });
+        }
+        resolve(options);
+    });
+}
+ var part3 = function(options){
+       return new Promise(function(resolve, reject){
+           for(i = 20; i < 40 ; i ++){
+                 request(options[i])
+                     .then(function(response) {
+                       console.log(response)
+                     })
+                     .catch(function(err) {
+                         console.log("waiting for db time limit");
+                     })
+                 }
+           });
+ }
+ part1().then(function(data){
+     //console.log(data);
+     part2(data).then(function(data){
+     });
+ });
+
+ setTimeout(function(){
+   console.log(outputWspd[0]);
+ },5000);
+
+/*
+
+var url = 'https://0e02ede9-86ba-497d-b352-8217aec97af2-bluemix:34e3a2252a0d72dcd419543f27bf939f94f3fce2a6c7257f918153a853626a79@0e02ede9-86ba-497d-b352-8217aec97af2-bluemix.cloudant.com';
+const options = {
+    method: 'GET',
+    uri: url
+}
+request(options)
+    .then(function(response) {
+      console.log(response)
+    })
+    .catch(function(err) {
+        console.log(err);
+    })
+
+*/
