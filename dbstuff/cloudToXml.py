@@ -11,47 +11,35 @@ my_database = client['fleeter']
 root = ET.Element("root")
 
 loopCounter = 0
-for part in my_database:
-    #print str(part['precip_hrly'])
-    if str(part['precip_hrly']) == 'None':
-        part['precip_hrly'] = 0
+things = []
+things.append('wspd')
+things.append('TweetScore')
+things.append('precip_hrly')
+things.append('pressure')
+things.append('clds')
+things.append('feels_like')
+things.append('wx_phrase')
+things.append('temp')
+things.append('wdir_cardinal')
+things.append('heat_index')
 
-
-
-    if str(part['TweetScore']) == 'None':
-        part['TweetScore'] = 0
-    if str(part['wspd']) == 'None':
-        part['wspd'] = 0
-
-    if str(part['pressure']) == 'None':
-        part['pressure'] = 0
-    if str(part['feels_like']) == 'None':
-        part['feels_like'] = 0
-    if str(part['wdir_cardinal']) == 'None':
-        part['wdir_cardinal'] = 0
-    print part['temp']
-    if str(part['temp']) == 'None':
-        part['temp'] = 0
-        print part['temp']
-    loopCounter += 1
-    if loopCounter > 500:
-        break
-loopCounter = 0
+breakThing = 0
 for part in my_database:
     doc = ET.SubElement(root, "doc")
-    ET.SubElement(doc, "Score").text = str(part['TweetScore'])
-    ET.SubElement(doc, "wspd").text = str(part['wspd'])
-    #ET.SubElement(doc, "precip_hrly").text = str(part['precip_hrly'])
-    #ET.SubElement(doc, "pressure").text = str(part['pressure'])
-    ET.SubElement(doc, "clds").text = str(part['clds'])
-    ET.SubElement(doc, "feels_like").text = str(part['feels_like'])
-    ET.SubElement(doc, "wx_phrase").text = str(part['wx_phrase'])
-    ET.SubElement(doc, "wdir_cardinal").text = str(part['wdir_cardinal'])
-    ET.SubElement(doc, "temp").text = str(part['temp'])
+    for attribute in things:
+        if str(part[attribute]) == 'None' or part['TweetScore'] == 0:
+            breakThing = 69
+            break
+    if breakThing == 69:
+        print "break"
+        breakThing = 0
+        continue
 
-    ET.SubElement(doc, "heat_index").text = str(part['heat_index'])
+
+    for attribute in things:
+        ET.SubElement(doc, attribute).text = str(part[attribute])
     loopCounter += 1
-    if loopCounter > 500:
+    if loopCounter > 5000:
         break
 
 tree = ET.ElementTree(root)
