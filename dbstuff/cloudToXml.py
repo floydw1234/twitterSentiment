@@ -25,7 +25,7 @@ things.append('heat_index')
 
 breakThing = 0
 for part in my_database:
-    doc = ET.SubElement(root, "doc")
+
     for attribute in things:
         if str(part[attribute]) == 'None' or part['TweetScore'] == 0:
             breakThing = 69
@@ -35,11 +35,18 @@ for part in my_database:
         breakThing = 0
         continue
 
-
+    doc = ET.SubElement(root, "doc")
     for attribute in things:
-        ET.SubElement(doc, attribute).text = str(part[attribute])
+
+        if attribute == "TweetScore":
+            if part[attribute] > 0:
+                ET.SubElement(doc, attribute).text = "positive"
+            else:
+                ET.SubElement(doc, attribute).text = "negative"
+        else:
+            ET.SubElement(doc, attribute).text = str(part[attribute])
     loopCounter += 1
-    if loopCounter > 5000:
+    if loopCounter > 10000:
         break
 
 tree = ET.ElementTree(root)
